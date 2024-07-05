@@ -20,8 +20,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true),
-        home: HomeView(),
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.grey.shade300,
+          useMaterial3: true,
+        ),
+        home: const HomeView(),
       ),
     );
   }

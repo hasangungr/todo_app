@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/product/model/base_model.dart';
-import 'package:todo_app/product/model/priorty_model.dart';
-
+ 
 class ApiService<T> {
   ApiService._init(this._dio, this._baseUrl);
 

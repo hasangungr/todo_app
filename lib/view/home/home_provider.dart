@@ -9,7 +9,7 @@ class HomeProvider extends ChangeNotifier {
     fetchTasksAndPriorties();
   }
 
-  bool isLoading = false;
+  bool? isLoading;
   List<PriortyModel>? priortyList;
   List<TodoModel>? taskList;
 
@@ -20,8 +20,19 @@ class HomeProvider extends ChangeNotifier {
     taskList = (await ApiService.instance.getDio("task", TodoModel()))
         ?.cast<TodoModel>();
 
-    isLoading = true;
+    if (priortyList != null && taskList != null) {
+      //
+      isLoading = true;
+    } else {
+      isLoading = false;
+    }
 
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    debugPrint("home dispose");
   }
 }

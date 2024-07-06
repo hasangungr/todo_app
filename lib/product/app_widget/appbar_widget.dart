@@ -11,7 +11,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSize {
 
   @override
   Widget get child => AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.grey,
         title: const Text(StringConstants.appbarTitle),
       );
 

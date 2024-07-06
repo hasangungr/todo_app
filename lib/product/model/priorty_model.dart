@@ -1,11 +1,11 @@
 import 'package:todo_app/product/model/base_model.dart';
 
 class PriortyModel extends BaseModel {
-  int? id;
+  int? priortyCode;
   String? priortyName;
   String? priortyIcon;
   PriortyModel({
-    this.id,
+    this.priortyCode,
     this.priortyName,
     this.priortyIcon,
   });
@@ -13,7 +13,7 @@ class PriortyModel extends BaseModel {
   @override
   Map<String, dynamic> get toJson {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
+    data['priortyCode'] = priortyCode;
     data['priortyName'] = priortyName;
     data['priortyIcon'] = priortyIcon;
 
@@ -21,9 +21,11 @@ class PriortyModel extends BaseModel {
   }
 
   @override
-  PriortyModel fromJson(Map<String, dynamic> json) => PriortyModel(
-        id: json['id'],
-        priortyName: json['priortyName'],
-        priortyIcon: json['priortyIcon'],
-      );
+  PriortyModel fromJson(Map<String, dynamic> json) {
+    return PriortyModel(
+      priortyCode: json['priortyCode'],
+      priortyName: json['priortyName'],
+      priortyIcon: json['priortyIcon'],
+    );
+  }
 }

@@ -10,20 +10,17 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        itemCount: provider.taskList?.length ?? 0,
-        itemBuilder: (context, index) {
-          return ToDoCardWidget(
-            todoModel: provider.taskList![index],
-            iconUrl: provider.priortyList
-                ?.firstWhere((element) =>
-                    element.id == provider.taskList![index].priortyId)
-                .priortyIcon,
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: provider.taskList?.length ?? 0,
+      itemBuilder: (context, index) {
+        return ToDoCardWidget(
+          todoModel: provider.taskList![index],
+          iconUrl: provider.priortyList!
+              .firstWhere((element) =>
+                  element.priortyCode == provider.taskList![index].priortyId)
+              .priortyIcon,
+        );
+      },
     );
   }
 }

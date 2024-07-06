@@ -14,7 +14,7 @@ class TodoModel extends BaseModel {
   int? priortyId;
 
   @override
-  fromJson(Map<String, dynamic> json) {
+  TodoModel fromJson(Map<String, dynamic> json) {
     return TodoModel(
       id: json['id'],
       title: json['title'],

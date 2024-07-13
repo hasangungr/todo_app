@@ -12,14 +12,10 @@ class AddTaskPriortyProvider extends ChangeNotifier {
     debugPrint("addtask provider init");
     formKey = GlobalKey();
     getView = view;
-
+    firstTextEditing = TextEditingController();
+    secondTextEditing = TextEditingController();
     if (view == "priorty") {
-      firstTextEditing = TextEditingController();
-      secondTextEditing = TextEditingController();
       thirdTextEditing = TextEditingController();
-    } else {
-      firstTextEditing = TextEditingController();
-      secondTextEditing = TextEditingController();
     }
 
     homeProvider = ctx.read<HomeProvider>();
@@ -45,15 +41,17 @@ class AddTaskPriortyProvider extends ChangeNotifier {
 
   Future<void> addTask() async {
     if (formKey?.currentState?.validate() ?? false) {
-      bool isAdded = await ApiService.instance.postDio(
-        "task",
-        TodoModel(
-            description: firstTextEditing.text,
-            title: secondTextEditing.text,
-            priortyId: priortyId),
-      );
+      final item = TodoModel(
+          description: firstTextEditing.text,
+          title: secondTextEditing.text,
+          priortyId: priortyId);
+      bool isAdded = await ApiService.instance.postDio("task", item);
+
       if (ctx.mounted) {
         if (isAdded == true) {
+          // homeProvider?.taskList?.add(item);
+          homeProvider?.fetchTasksAndPriorties();
+
           ctx.goNamed(AppRoutes.home);
         } else {
           showAboutDialog(context: ctx);
@@ -62,20 +60,20 @@ class AddTaskPriortyProvider extends ChangeNotifier {
     } else {
       showAboutDialog(context: ctx);
     }
+    notifyListeners();
   }
 
   Future<void> addPriorty() async {
     if (formKey?.currentState?.validate() ?? false) {
-      bool isAdded = await ApiService.instance.postDio(
-        "priorty",
-        PriortyModel(
-          priortyCode: int.tryParse(firstTextEditing.text),
-          priortyName: secondTextEditing.text,
-          priortyIcon: thirdTextEditing.text,
-        ),
+      final item = PriortyModel(
+        priortyCode: int.tryParse(firstTextEditing.text),
+        priortyName: secondTextEditing.text,
+        priortyIcon: thirdTextEditing.text,
       );
+      bool isAdded = await ApiService.instance.postDio("priorty", item);
       if (ctx.mounted) {
         if (isAdded == true) {
+          homeProvider?.priortyList?.add(item);
           ctx.goNamed(AppRoutes.home);
         } else {
           showAboutDialog(context: ctx);
@@ -84,11 +82,17 @@ class AddTaskPriortyProvider extends ChangeNotifier {
     } else {
       showAboutDialog(context: ctx);
     }
+    notifyListeners();
   }
 
   @override
   void dispose() {
     super.dispose();
     debugPrint("add dispose");
+    firstTextEditing.dispose();
+    secondTextEditing.dispose();
+    if (getView == "priorty") {
+      thirdTextEditing.dispose();
+    }
   }
 }

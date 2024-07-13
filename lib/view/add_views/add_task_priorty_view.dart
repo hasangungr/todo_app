@@ -58,7 +58,7 @@ class AddTaskPriortyView extends StatelessWidget {
             onPressed: () {
               provider.addTask();
             },
-            child: Text("Save"))
+            child: const Text("Save"))
       ],
     );
   }
@@ -68,18 +68,24 @@ class AddTaskPriortyView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextFormFieldWidget(
-            isNullValid: false, controller: provider.firstTextEditing),
+            hint: "Priorty Code",
+            isNullValid: false,
+            controller: provider.firstTextEditing),
         const SizedBox(height: 40),
         TextFormFieldWidget(
-            isNullValid: true, controller: provider.secondTextEditing),
+            hint: "Priorty Name",
+            isNullValid: true,
+            controller: provider.secondTextEditing),
         const SizedBox(height: 40),
         TextFormFieldWidget(
-            isNullValid: true, controller: provider.thirdTextEditing),
+            hint: "Priorty Icon Url",
+            isNullValid: true,
+            controller: provider.thirdTextEditing),
         ElevatedButton(
             onPressed: () {
               provider.addPriorty();
             },
-            child: Text("Save"))
+            child: const Text("Save"))
       ],
     );
   }

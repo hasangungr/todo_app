@@ -8,6 +8,7 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: AppRoutes.home,
+      name: AppRoutes.home,
       builder: (context, state) => const HomeView(),
     ),
     GoRoute(

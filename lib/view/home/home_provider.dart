@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo_app/product/model/priorty_model.dart';
+ import 'package:todo_app/product/model/priorty_model.dart';
 import 'package:todo_app/product/model/todo_model.dart';
 import 'package:todo_app/product/services/api_service.dart';
 
@@ -31,6 +31,10 @@ class HomeProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future<void> removeTask(String id) async {
+    await ApiService.instance.removeDio(id);
   }
 
   void goPriortyOrTask(String value, BuildContext context) {

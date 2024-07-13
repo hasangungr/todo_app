@@ -20,8 +20,11 @@ class ApiService<T> {
     if (response.data != null) {
       Map data = response.data;
 
-      List<T> bisey =
-          data.values.map<T>((e) => model.fromJson(e)).toList();
+      List<T> bisey = data.entries.map<T>((entry) {
+        final item = model.fromJson(entry.value);
+        item.id = entry.key;
+        return item;
+      }).toList();
 
       return bisey;
     } else {
@@ -40,6 +43,18 @@ class ApiService<T> {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<void> removeDio(String id) async {
+    Response response =
+        await instance._dio.delete("${instance._baseUrl}task/$id.json");
+
+    if (response.statusCode == 200) {
+      debugPrint("success");
+    } else {
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.statusMessage.toString());
     }
   }
 }

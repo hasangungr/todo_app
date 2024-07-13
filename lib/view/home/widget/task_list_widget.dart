@@ -14,15 +14,26 @@ class TaskList extends StatelessWidget {
     return ListView.builder(
       itemCount: context.watch<HomeProvider>().taskList?.length ?? 0,
       itemBuilder: (context, index) {
-        return ToDoCardWidget(
-          todoModel: context.watch<HomeProvider>().taskList![index],
-          iconUrl: context
-              .watch<HomeProvider>()
-              .priortyList!
-              .firstWhere((element) =>
-                  element.priortyCode ==
-                  context.watch<HomeProvider>().taskList![index].priortyId)
-              .priortyIcon,
+        return Dismissible(
+          key: Key(index.toString()),
+          onDismissed: (direction) {
+            debugPrint(
+                context.read<HomeProvider>().taskList![index].id.toString());
+
+            context
+                .read<HomeProvider>()
+                .removeTask(context.read<HomeProvider>().taskList![index].id!);
+          },
+          child: ToDoCardWidget(
+            todoModel: context.watch<HomeProvider>().taskList![index],
+            iconUrl: context
+                .watch<HomeProvider>()
+                .priortyList!
+                .firstWhere((element) =>
+                    element.priortyCode ==
+                    context.watch<HomeProvider>().taskList![index].priortyId)
+                .priortyIcon,
+          ),
         );
       },
     );

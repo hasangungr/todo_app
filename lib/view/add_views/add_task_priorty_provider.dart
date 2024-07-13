@@ -66,6 +66,7 @@ class AddTaskPriortyProvider extends ChangeNotifier {
   Future<void> addPriorty() async {
     if (formKey?.currentState?.validate() ?? false) {
       final item = PriortyModel(
+        
         priortyCode: int.tryParse(firstTextEditing.text),
         priortyName: secondTextEditing.text,
         priortyIcon: thirdTextEditing.text,

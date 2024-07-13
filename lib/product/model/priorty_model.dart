@@ -1,14 +1,18 @@
 import 'package:todo_app/product/model/base_model.dart';
 
-class PriortyModel extends BaseModel {
+class PriortyModel extends BaseModel<PriortyModel> {
   int? priortyCode;
   String? priortyName;
   String? priortyIcon;
+
   PriortyModel({
     this.priortyCode,
     this.priortyName,
     this.priortyIcon,
-  });
+    String? id,
+  }) : super() {
+    this.id = id;
+  }
 
   @override
   Map<String, dynamic> get toJson {

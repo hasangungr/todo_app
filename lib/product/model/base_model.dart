@@ -1,5 +1,6 @@
 abstract class BaseModel<T> {
-  BaseModel();
+  String? id;
+
   T fromJson(Map<String, dynamic> json);
 
   Map<String, dynamic> get toJson;

@@ -15,7 +15,8 @@ class TaskList extends StatelessWidget {
       itemCount: context.watch<HomeProvider>().taskList?.length ?? 0,
       itemBuilder: (context, index) {
         return Dismissible(
-          key: Key(index.toString()),
+          key:
+              Key(context.watch<HomeProvider>().taskList![index].id.toString()),
           onDismissed: (direction) {
             debugPrint(
                 context.read<HomeProvider>().taskList![index].id.toString());
